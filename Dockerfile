@@ -1,18 +1,13 @@
-#FROM  frolvlad/alpine-scala:2.11
-FROM bigtruedata/sbt:0.13.15-2.11.8
-
-
-# ENV SCALA_VERSION 2.11.8
-# ENV SBT_VERSION 0.13.15
+FROM sbtscala/scala-sbt:eclipse-temurin-17.0.15_6_1.11.3_3.7.1
 
 EXPOSE 8080
 
-RUN mkdir /code
-WORKDIR /code
+WORKDIR /app
 
-ADD . /code/
+COPY . .
 
-# CMD java -jar server.jar
-RUN ./sbt clean update
+RUN sbt clean update
 
-CMD ./sbt run
+CMD ["sbt", "run"]
+
+

@@ -1,37 +1,34 @@
-organization  := "javier.rengel"
-
-version       := "1"
-
-scalaVersion  := "2.12.8"
+ThisBuild / scalaVersion := "2.12.19"
+ThisBuild / organization := "javier.rengel"
+ThisBuild / version := "1.0"
 
 scalacOptions := Seq("-unchecked", "-deprecation", "-encoding", "utf8")
-parallelExecution in Test := false
+Test / parallelExecution := false
+
+Compile / mainClass := Some("todo.WebServer")
+
 
 libraryDependencies ++= {
-  val akkaV = "2.5.19"
-  val restV = "10.1.7"
+  val akkaV = "2.6.20"
+  val akkaHttpV = "10.2.10"
+  val slickV = "3.4.1"
+
   Seq(
-    "com.typesafe.akka" %% "akka-http"   % restV,
-    "com.typesafe.akka" %% "akka-stream" % akkaV,
-    "com.typesafe.akka" %% "akka-slf4j" % akkaV,
-    "com.typesafe.akka" %% "akka-http-testkit" % restV % Test,
-    "com.typesafe.akka" %% "akka-http-spray-json" % restV,
-    "com.typesafe.akka" %% "akka-testkit" % akkaV % Test,
-
-
-
-  "org.flywaydb" % "flyway-core" % "4.2.0", // run migrations
-
-    "com.typesafe.slick"  %%  "slick"         % "3.2.3",
-    "postgresql"          % "postgresql"      % "9.1-901.jdbc4",
-
-    "org.specs2"          %%  "specs2-core"   % "4.3.6" % Test,
-    "com.h2database"      %   "h2"            % "1.3.175" % Test,
-
-    "ch.qos.logback" % "logback-classic" % "1.2.3",
-    "org.slf4j" % "slf4j-api" % "1.7.25"
-
+    "com.typesafe.akka" %% "akka-http"              % akkaHttpV,
+    "com.typesafe.akka" %% "akka-http-spray-json"   % akkaHttpV,
+    "com.typesafe.akka" %% "akka-http-testkit"      % akkaHttpV % Test,
+    "com.typesafe.akka" %% "akka-stream"            % akkaV,
+    "com.typesafe.akka" %% "akka-slf4j"             % akkaV,
+    "com.typesafe.akka" %% "akka-testkit"           % akkaV % Test,
+    "org.flywaydb"      %  "flyway-core"            % "9.22.3",
+    "com.typesafe.slick" %% "slick"                 % slickV,
+    "org.postgresql"    %  "postgresql"             % "42.6.0",
+    "org.specs2"        %% "specs2-core"            % "4.20.2" % Test,
+    "com.h2database"    %  "h2"                     % "2.2.224" % Test,
+    "ch.qos.logback"    %  "logback-classic"        % "1.4.11",
+    "org.slf4j"         %  "slf4j-api"              % "2.0.9"
   )
 }
 
+// ✅ Include Revolver plugin support (at bottom)
 Revolver.settings

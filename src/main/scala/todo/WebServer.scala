@@ -24,9 +24,17 @@ object WebServer {
     // Run database migrations
     val url = conf.getString("db.url")
     logger.info(s"Migrating database on url ${url}")
-    val flyway = new Flyway()
-    flyway.setDataSource(url, conf.getString("db.user"), conf.getString("db.password"))
+
+    val flyway = Flyway
+      .configure()
+      .dataSource(url, conf.getString("db.user"), conf.getString("db.password"))
+      .load()
+
     flyway.migrate()
+
+ //   val flyway = new Flyway()
+   /// flyway.setDataSource(url, conf.getString("db.user"), conf.getString("db.password"))
+   // flyway.migrate()
 
     // Run webserver with akka-http
     implicit val system = ActorSystem("my-system")
@@ -37,5 +45,11 @@ object WebServer {
     Http().bindAndHandle(routes, "0.0.0.0", 8080)
 
     println(s"Server online at http://localhost:8080/")
+
+   // println("Press RETURN to stop...")
+   // scala.io.StdIn.readLine() // <--- This blocks until you press Enter
+
+    Thread.currentThread().join() // This blocks forever
+
   }
 }
