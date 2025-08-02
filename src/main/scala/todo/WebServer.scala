@@ -42,14 +42,11 @@ object WebServer {
     implicit val executionContext = system.dispatcher
 
     val routes = TaskController.routes ~ StatusController.routes
-    Http().bindAndHandle(routes, "0.0.0.0", 8080)
+    val bindingFuture = Http().bindAndHandle(routes, "0.0.0.0", 8080)
 
     println(s"Server online at http://localhost:8080/")
 
-   // println("Press RETURN to stop...")
-   // scala.io.StdIn.readLine() // <--- This blocks until you press Enter
-
-    Thread.currentThread().join() // This blocks forever
+    while(true) {}
 
   }
 }

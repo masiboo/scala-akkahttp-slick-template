@@ -22,6 +22,7 @@ libraryDependencies ++= {
     "com.typesafe.akka" %% "akka-testkit"           % akkaV % Test,
     "org.flywaydb"      %  "flyway-core"            % "9.22.3",
     "com.typesafe.slick" %% "slick"                 % slickV,
+    "com.typesafe.slick" %% "slick-hikaricp"        % slickV,
     "org.postgresql"    %  "postgresql"             % "42.6.0",
     "org.specs2"        %% "specs2-core"            % "4.20.2" % Test,
     "com.h2database"    %  "h2"                     % "2.2.224" % Test,
@@ -32,3 +33,8 @@ libraryDependencies ++= {
 
 // ✅ Include Revolver plugin support (at bottom)
 Revolver.settings
+
+assembly / assemblyMergeStrategy := {
+  case PathList("META-INF", xs @ _*) => MergeStrategy.discard
+  case _ => MergeStrategy.first
+}

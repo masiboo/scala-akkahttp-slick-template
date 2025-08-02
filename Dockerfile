@@ -6,8 +6,8 @@ WORKDIR /app
 
 COPY . .
 
-RUN sbt clean update
+RUN sbt "set test in Test := {}" assembly
 
-CMD ["sbt", "run"]
+CMD ["java", "-jar", "target/scala-2.12/app-assembly-1.0.jar"]
 
 

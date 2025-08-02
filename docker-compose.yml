@@ -9,8 +9,8 @@ services:
       - .:/code
       - ~/.ivy2:/root/.ivy2  # Keep downloaded dependencies locally
       - ~/.sbt:/root/.sbt
-    links:
-      - postgres
+    entrypoint: sbt
+    command: run
 
   postgres:
     image: postgres:13
@@ -22,7 +22,9 @@ services:
     ports:
       - "5432:5432"
     environment:
+      - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
 
 volumes:
   pgdata:
