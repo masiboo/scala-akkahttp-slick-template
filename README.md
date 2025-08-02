@@ -3,7 +3,7 @@
 This REST API powered by Spray and persistence on Slick allows users to create, 
 update and list tasks on a simple TODO manager app. 
 
-The main purpose of this project is to server as template for future Scala REST APIs.
+The main purpose of this project is to server as template for future Scala REST APIs.  
 
 ![](schema.png)
 
