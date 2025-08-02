@@ -1,13 +1,11 @@
-FROM sbtscala/scala-sbt:eclipse-temurin-17.0.15_6_1.11.3_3.7.1
-
-EXPOSE 8080
-
+FROM maven:3.8.4-openjdk-17 AS build
 WORKDIR /app
+COPY pom.xml .
+COPY src ./src
+RUN mvn clean package -DskipTests
 
-COPY . .
-
-RUN sbt "set test in Test := {}" assembly
-
-CMD ["java", "-jar", "target/scala-2.12/app-assembly-1.0.jar"]
-
-
+FROM openjdk:17-jdk-slim
+WORKDIR /app
+COPY --from=build /app/target/todo-1.0.0.jar /app/server.jar
+EXPOSE 8080
+CMD ["java", "-jar", "/app/server.jar"]

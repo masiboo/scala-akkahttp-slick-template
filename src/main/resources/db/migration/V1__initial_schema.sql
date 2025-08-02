@@ -1,7 +1,8 @@
 create table "task" (
-"id" UUID PRIMARY KEY,
-"title" VARCHAR NOT NULL,
-"description" VARCHAR,
-"completed" BOOLEAN NOT NULL,
-"created" TIMESTAMP NOT NULL,
-"due" TIMESTAMP);
+  "id" UUID PRIMARY KEY,
+  "title" VARCHAR NOT NULL,
+  "description" TEXT,
+  "completed" BOOLEAN NOT NULL,
+  "created" TIMESTAMP,
+  "due" TIMESTAMP
+);
